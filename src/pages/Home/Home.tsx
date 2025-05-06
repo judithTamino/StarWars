@@ -12,7 +12,8 @@ interface HomeProps {}
 const Home: FunctionComponent<HomeProps> = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const { search } = useSearch();
-  const favoriteCharacters: string[] = [];
+  const stored = sessionStorage.getItem('favoriteCharacters'); 
+  const favoriteCharacters: string[] = stored ? JSON.parse(stored) : []; 
 
   useEffect(() => {
     getCharacters()

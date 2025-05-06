@@ -10,6 +10,7 @@ import { ICharacter } from '../interfaces/ICharacter';
 import { getCharacterId } from '../utils/getCharacterId';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { isFavoriteCharacter } from '../utils/isFavorite';
 
 interface CharacterCardProps {
   character: ICharacter;
@@ -20,7 +21,7 @@ const CharacterCard: FunctionComponent<CharacterCardProps> = ({
   character,
   favoriteCharacters,
 }) => {
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(isFavoriteCharacter(character.name, favoriteCharacters));
   const id: string = getCharacterId(character.url);
 
   const handleFavorite = (name: string) => {
@@ -31,6 +32,9 @@ const CharacterCard: FunctionComponent<CharacterCardProps> = ({
       favoriteCharacters.push(name);
     else
       favoriteCharacters.splice(index, 1);
+
+      // save fav char array to session storage
+      sessionStorage.setItem('favoriteCharacters', JSON.stringify(favoriteCharacters));
   };
 
   return (
