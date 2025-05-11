@@ -7,3 +7,8 @@ const URL = 'http://localhost:3000/favorites';
 export const getCharacters = () => {
   return axios.get(`${API}/people`);
 };
+
+// Get Character
+export const getCharacter = (id:string) => {
+  return axios.get(`${API}/people/${id}`);
+}

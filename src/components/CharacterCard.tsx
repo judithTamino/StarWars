@@ -14,7 +14,7 @@ import { isFavoriteCharacter } from '../utils/isFavorite';
 
 interface CharacterCardProps {
   character: ICharacter;
-  favoriteCharacters: string[];
+  favoriteCharacters: ICharacter[];
 }
 
 const CharacterCard: FunctionComponent<CharacterCardProps> = ({
@@ -24,15 +24,14 @@ const CharacterCard: FunctionComponent<CharacterCardProps> = ({
   const [isFavorite, setIsFavorite] = useState<boolean>(isFavoriteCharacter(character.name, favoriteCharacters));
   const id: string = getCharacterId(character.url);
 
-  const handleFavorite = (name: string) => {
+  const handleFavorite = (character:ICharacter) => {
     setIsFavorite(!isFavorite);
 
-    const index = favoriteCharacters.indexOf(name);
+    const index = favoriteCharacters.findIndex((c:ICharacter) => c.name === character.name );
     if(index === -1)
-      favoriteCharacters.push(name);
+      favoriteCharacters.push(character);
     else
       favoriteCharacters.splice(index, 1);
-
       // save fav char array to session storage
       sessionStorage.setItem('favoriteCharacters', JSON.stringify(favoriteCharacters));
   };
@@ -66,7 +65,7 @@ const CharacterCard: FunctionComponent<CharacterCardProps> = ({
             variant='contained'
             color='primary'
             size='small'
-            onClick={() => handleFavorite(character.name)}
+            onClick={() => handleFavorite(character)}
           >
             {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </Button>

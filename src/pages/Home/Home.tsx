@@ -6,6 +6,7 @@ import CharacterCard from '../../components/CharacterCard';
 import { ICharacter } from '../../interfaces/ICharacter';
 import Searchbar from '../../components/Searchbar';
 import useSearch from '../../context/searchContext';
+import { useNavigate } from 'react-router-dom';
 
 interface HomeProps {}
 
@@ -13,7 +14,8 @@ const Home: FunctionComponent<HomeProps> = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const { search } = useSearch();
   const stored = sessionStorage.getItem('favoriteCharacters');
-  const favoriteCharacters: string[] = stored ? JSON.parse(stored) : [];
+  const favoriteCharacters: ICharacter[] = stored ? JSON.parse(stored) : [];
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCharacters()
@@ -43,9 +45,11 @@ const Home: FunctionComponent<HomeProps> = () => {
         color='primary'
         sx={{
           position: 'fixed',
-          bottom: 4,
-          right: 4,
+          bottom: 8,
+          right: 8,
+          zIndex: '100'
         }}
+        onClick={() => navigate("/movies")}
       >
         suggest movies
       </Button>
