@@ -11,16 +11,14 @@ import { getCharacterId } from '../utils/getCharacterId';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { isFavoriteCharacter } from '../utils/isFavorite';
+import { useFavoriteCharacters } from '../context/favoriteCharacterContext';
 
 interface CharacterCardProps {
   character: ICharacter;
-  favoriteCharacters: ICharacter[];
 }
 
-const CharacterCard: FunctionComponent<CharacterCardProps> = ({
-  character,
-  favoriteCharacters,
-}) => {
+const CharacterCard: FunctionComponent<CharacterCardProps> = ({character}) => {
+  const {favoriteCharacters } = useFavoriteCharacters();
   const [isFavorite, setIsFavorite] = useState<boolean>(isFavoriteCharacter(character.name, favoriteCharacters));
   const id: string = getCharacterId(character.url);
 

@@ -13,8 +13,6 @@ interface HomeProps {}
 const Home: FunctionComponent<HomeProps> = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const { search } = useSearch();
-  const stored = sessionStorage.getItem('favoriteCharacters');
-  const favoriteCharacters: ICharacter[] = stored ? JSON.parse(stored) : [];
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +33,6 @@ const Home: FunctionComponent<HomeProps> = () => {
           <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
             <CharacterCard
               character={character}
-              favoriteCharacters={favoriteCharacters}
             />
           </Grid>
         ))}

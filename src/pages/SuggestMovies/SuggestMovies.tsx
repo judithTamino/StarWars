@@ -1,13 +1,12 @@
 import { Box } from '@mui/material';
 import { FunctionComponent } from 'react';
-import { ICharacter } from '../../interfaces/ICharacter';
+import { useFavoriteCharacters } from '../../context/favoriteCharacterContext';
 
 
-interface SuggestMoviesProps {
-  favoriteCharacters: ICharacter[];
-}
+interface SuggestMoviesProps {}
 
-const SuggestMovies: FunctionComponent<SuggestMoviesProps> = ({favoriteCharacters}) => {
+const SuggestMovies: FunctionComponent<SuggestMoviesProps> = () => {
+  const { favoriteCharacters } = useFavoriteCharacters();
 
   return <Box></Box>;
 };
